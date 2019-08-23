@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jasypt_encoding.jar">
+    <output-path>$PROJECT_DIR$/out</output-path>
+    <root id="archive" name="jasypt_encoding.jar">
+      <element id="module-output" name="jasypt_encoding" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/argparse4j-0.8.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jasypt-1.9.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
