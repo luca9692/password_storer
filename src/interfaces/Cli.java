@@ -6,6 +6,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
 import net.sourceforge.argparse4j.inf.Namespace;
+import xml_handlers.Initializer;
 
 public class Cli {
 
@@ -48,8 +49,11 @@ public class Cli {
             ns = parser.parseArgs(args);
             System.out.println(ns);
             //TODO check secure
+            String secure = (ns.getString("secure"));
+            Initializer handle = new Initializer(secure);
             if(ns.getString("print").equals("true")){
-                System.out.print("print");
+                System.out.print("Print Completed");
+                handle.printer();
             } else if(ns.getString("encrypt") != null){
                 System.out.print("encrypt");
             } else if(ns.getString("decrypt") != null){
