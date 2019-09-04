@@ -15,8 +15,6 @@ public class Encrypt {
 
     public String encrypt_password(){
         StandardPBEStringEncryptor encoder = new StandardPBEStringEncryptor();
-        System.out.println();
-
         encoder.setPassword(this.password);
         this.encrypted = encoder.encrypt(this.in_text);
         return this.encrypted;

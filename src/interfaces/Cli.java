@@ -8,6 +8,8 @@ import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
 import net.sourceforge.argparse4j.inf.Namespace;
 import xml_handlers.Initializer;
 
+import java.util.List;
+
 /**
  * This is the command line interface.
  * It has everything to store, modify and delete passwords.
@@ -44,7 +46,7 @@ public class Cli {
 
         group.addArgument("-m", "--modify")
             .metavar("ID", "USER_NAME_EMAIL", "PLAINTEXT_PASSWORD")
-            .nargs(2)
+            .nargs(3)
             .help("Modify user and/or password associated to a certain ID");
 
         group.addArgument("-r", "--remove")
@@ -56,20 +58,26 @@ public class Cli {
         try {
             ns = parser.parseArgs(args);
             System.out.println(ns);
-            //TODO check secure
             String secure = (ns.getString("secure"));
             Initializer handle = new Initializer(secure);
             if(ns.getString("print").equals("true")){
-                System.out.print("Print Completed");
                 handle.printer();
             } else if(ns.getString("encrypt") != null){
-                System.out.print("encrypt");
+                List new_stuff = ns.getList("encrypt");
+                handle.add_new_instance(
+                        new_stuff.get(0).toString(), // SERVICE NAME
+                        new_stuff.get(1).toString(), // USERNAME or EMAIL
+                        new_stuff.get(2).toString()); // PASSWORD
             } else if(ns.getString("decrypt") != null){
-                System.out.print("dec");
+                handle.decrypt(Integer.parseInt(ns.getList("decrypt").get(0).toString()));
             } else if(ns.getString("modify") != null){
-                System.out.print("mod");
+                List new_stuff = ns.getList("modify");
+                handle.modify_instance(
+                        Integer.parseInt(new_stuff.get(0).toString()), // ID
+                        new_stuff.get(1).toString(), // USERNAME or EMAIL
+                        new_stuff.get(2).toString()); // PASSWORD
             } else if(ns.getString("remove") != null){
-                System.out.print("rem");
+                handle.remove_instance(Integer.parseInt(ns.getList("remove").get(0).toString()));
             }
 
 
