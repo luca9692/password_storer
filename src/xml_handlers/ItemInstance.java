@@ -1,5 +1,12 @@
 package xml_handlers;
 
+/**
+ * This is the class which represent all the fields of each service
+ * saved inside the XML
+ *
+ * @author Luca Mortillaro
+ *
+ */
 public class ItemInstance {
 
     private String service_name;

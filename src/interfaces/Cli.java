@@ -8,6 +8,14 @@ import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
 import net.sourceforge.argparse4j.inf.Namespace;
 import xml_handlers.Initializer;
 
+/**
+ * This is the command line interface.
+ * It has everything to store, modify and delete passwords.
+ * I hope to change it with a GUI ASAP.
+ *
+ * @author Luca Mortillaro
+ */
+
 public class Cli {
 
     public void parse(String[] args){

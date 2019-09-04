@@ -8,10 +8,18 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class initializes the file inside the project and
+ * does all the preliminary stuff before calling the delegated function.
+ *
+ * @author Luca Mortillaro
+ */
 public class Initializer {
     protected String author = "Luca Mortillaro";
     public String xml_name = "jasypt_encryptor.xml";
@@ -21,9 +29,47 @@ public class Initializer {
     public Initializer(String secure) {
         this.secure = secure;
         this.load_map();
+        this.write_map();
     }
 
+    /**
+     * API to convert the hashmap to the xml.
+     * Prefer this to an external service :)
+     */
+    private void write_map() {
+        StringBuilder sb = new StringBuilder("<root>\n");
 
+
+        for (Map.Entry<Integer, ItemInstance> entry : saved_passwords.entrySet()) {
+            sb.append("<service id=\"" + entry.getKey() + "\">\n" +
+                    "        <name>" + entry.getValue().getService_name() + "</name>\n" +
+                    "        <username>" + entry.getValue().getUsername() + "</username>\n" +
+                    "        <password>" + entry.getValue().getEncrypted_password() + "</password>\n" +
+                    "    </service>");
+
+        }
+
+        sb.append("</root>");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(xml_name));
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+    }
+
+    /**
+     * Load the xml file inside an HashMap structure
+     * allowing to modify it natively with Java
+     */
     private void load_map() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
