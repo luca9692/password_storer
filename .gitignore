@@ -1,0 +1,8 @@
+# Intellij Files and Folders
+.idea/*
+*.iml
+# Compile Filese
+
+# Log files
+
+# Specific files

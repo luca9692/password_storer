@@ -34,6 +34,10 @@ public class Cli {
             .action(Arguments.storeTrue())
             .help("Print a list of all stored password and services");
 
+        group.addArgument("-pe", "--printall")
+                .action(Arguments.storeTrue())
+                .help("Print the list of all stored password and services NOT ENCRYPTED!! USE ONLY WHEN YOU'RE ALONE! ");
+
         group.addArgument("-e", "--encrypt")
             .metavar("SERVICE_NAME", "USER_NAME_EMAIL", "PLAINTEXT_PASSWORD")
             .nargs(3)
@@ -60,8 +64,10 @@ public class Cli {
             System.out.println(ns);
             String secure = (ns.getString("secure"));
             Initializer handle = new Initializer(secure);
-            if(ns.getString("print").equals("true")){
+            if(ns.getString("print").equals("true")) {
                 handle.printer();
+            } else if(ns.getString("printall").equals("true")){
+                handle.print_all();
             } else if(ns.getString("encrypt") != null){
                 List new_stuff = ns.getList("encrypt");
                 handle.add_new_instance(

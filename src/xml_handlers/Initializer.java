@@ -184,13 +184,25 @@ public class Initializer {
         }
     }
 
+    /**
+     *  Print the list of all accounts and passwords
+     */
+    public void print_all() {
+        System.out.println("\nYour Accounts and passwords in cleartext-------------------------");
+        System.out.printf("%-8s %-25s %-40s %s\n", "ID", "Service name", "Username", "Password");
+        for (Map.Entry<Integer, ItemInstance> entry : saved_passwords.entrySet()) {
+            System.out.printf("%-8d %-25s %-40s %s\n",
+                    entry.getKey(), entry.getValue().getService_name(),
+                    entry.getValue().getUsername(), new Decrypt(entry.getValue().getEncrypted_password(), this.secure).decrypt_password());
 
+        }
+    }
 
     /**
      *  Print the whole document to output
      */
     public void printer(){
-        System.out.println("\nI tuoi dati-------------------------");
+        System.out.println("\nYour Accounts and passwords encrypted-------------------------");
         System.out.printf("%-8s %-25s %-40s %s\n", "ID", "Service name", "Username", "Password");
         for (Map.Entry<Integer, ItemInstance> entry : saved_passwords.entrySet()) {
         System.out.printf("%-8d %-25s %-40s %s\n",
@@ -198,7 +210,6 @@ public class Initializer {
                 entry.getValue().getUsername(), entry.getValue().getEncrypted_password());
 
         }
-
 
     }
 
